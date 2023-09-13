@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
-const {Client}=require('pg')
+const Pool=require('pg').Pool
 
 const db={
     user:"postgres",
@@ -11,7 +11,7 @@ const db={
     port:"5432"
 }
 
-const con=new Client(db)
+const con= new Pool(db)
 
 app.use(cors())
 app.use(express.json())
@@ -61,13 +61,54 @@ async function createtasktb(){
 
 // app.get('/',(req,res)=>{
 //     res.send("Hello Client This is Main Server Landing Page ")
-//     window.location('/node.js')
+//     window.location('/')
 // })
-app.get('/createtbtasks',(req,res)=>{
+app.get('/',(req,res)=>{
     createtasktb()
     res.send("Hello Client! \n This is TASK Table Creating Page ")
-    // window.location('node.js')
+    // window.location('/')
 })
+
+//Task CRUD Operations
+app.post('/addtask', async (req,res)=>{
+    try {
+        const {task} = req.body;
+        const newTask = await con.query("INSERT INTO tasks (task) VALUES ($1) RETURNING *",[task]);
+        res.json(newTask)
+    } catch (err) {
+        console.log(err.message)
+    }
+})
+
+app.get('/tasks',async (req,res)=>{
+    try {
+        console.log("All Tasks")
+        const alltasks= await con.query("SELECT * FROM tasks");
+        res.json(alltasks.rows);
+    } catch (err) {
+        console.log(err.message)
+    }
+})
+
+app.delete('/deltask/:id', async (req,res)=>{
+    try {
+        const task=await con.query(`DELETE FROM tasks WHERE id=${req.params.id}`);
+    } catch (err) {
+        console.log(err.message)
+    }
+})
+
+app.put('/edittask/:id', async (req,res)=>{
+    try {
+        const {task} = req.body;
+        console.log(req.params.id+":"+task)
+        const update = await con.query(`UPDATE tasks SET task='${task}' WHERE id=${req.params.id}`);
+        res.end()
+    } catch (err) {
+        console.log(err.message)
+    }
+})
+
 app.listen(3000,(req,res)=>{
     console.log("Web Server running at port no:3000")
 })
