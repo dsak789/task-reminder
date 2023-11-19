@@ -12,7 +12,7 @@ const AddTask = () => {
 
     const adding_task = async () => {
         const data = {
-            title: title, 
+            title: title,
             description: description,
         };
         try {
@@ -35,7 +35,7 @@ const AddTask = () => {
                                 '& > :not(style)': { m: 1, width: '25ch' },
                             }}
                             noValidate
-                            autoComplete="off"
+                            autoComplete="on"
                         >
                             <TextField id="outlined-basic" name="title" label="Task Title" variant="outlined" onChange={(e) => { setTitle(e.target.value) }} />
                             <TextField id="outlined-basic" name="description" label="Description" variant="outlined" onChange={(e) => { setDescription(e.target.value) }} />

@@ -56,8 +56,8 @@ const Tasks = () => {
             <div className='main-tasks'>
                 <h1 align='center'>All Tasks</h1>
                 <div align="center">
-                    <TableContainer component={Paper}>
-                        <Table sx={{ minWidth: 100 }} aria-label="simple table">
+                    <TableContainer component={Paper} align='center'>
+                        <Table sx={{ minWidth: 100 }} aria-label="simple table" align='center'>
                             <TableHead>
                                 <TableRow>
                                     <TableCell><b>Sl No</b></TableCell>
