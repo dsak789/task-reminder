@@ -1,0 +1,23 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.main-addtask{
+    display: flex;
+    flex-direction: column;
+    min-height: 50vh;
+    justify-content: center;
+    align-items: center;
+    /* background-color: rgb(69, 74, 74); */
+}
+.form-box{
+    display: flex;
+    flex-direction: column;
+    border: 2.3px rgb(70, 70, 175) solid ;
+    border-radius: 12px;
+    min-height: 30vh;
+    align-items: center;
+    justify-content: space-around;
+    
+}
